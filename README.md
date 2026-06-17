@@ -1,42 +1,40 @@
 # Adcash Technical Assessment Tasks
 
-Hey there! This repo contains three PHP tasks I built for a technical assessment. Each one tackles a different problem and shows off different skills. No fancy frameworks here - just clean, vanilla PHP doing what it does best.
+This repository contains three PHP solutions for a technical assessment. Each task demonstrates different problem-solving approaches and programming skills using vanilla PHP.
 
-## What's Inside?
+## Overview
 
 ### Task 1: Advertising Bid Auction
-**The Challenge**: Build a second-price auction system where the highest bidder wins but pays the second-highest price.
+A second-price auction system that processes bids from a CSV file and determines the winner and their payment amount. The highest bidder wins but pays the second-highest price.
 
-Think of it like eBay - you bid $100, but if the next highest bid is $75, you only pay $75. Read bids from a CSV, figure out who wins, and what they pay.
+**Key features**: Single-pass algorithm, handles edge cases, comprehensive test coverage
 
-[Check it out →](task1_advertising_bid_auction/)
+[View details →](task1_advertising_bid_auction/)
 
 ### Task 2: Word Frequency Counter
-**The Challenge**: Create a REST API that counts how many times words appear in text.
+A REST API that tracks word frequencies across submitted texts. Data persists between server restarts and supports concurrent access.
 
-Send it some text like "love grows where kindness lives" and it'll tell you each word appeared once. Send more text with "kindness" in it, and the count goes up! It remembers everything and can handle multiple people using it at once.
+**Key features**: Thread-safe operations, case-insensitive matching, persistent storage
 
-[Check it out →](task2_word_frequency_counter/)
+[View details →](task2_word_frequency_counter/)
 
 ### Task 3: Escape a Labyrinth
-**The Challenge**: Find the shortest path through a maze where you can break one wall.
+A pathfinding solution that finds the shortest route through a maze with the ability to break through one wall using BFS (Breadth-First Search).
 
-You start at the top-left, need to reach the bottom-right, and can smash through one wall along the way. What's the quickest route? Uses BFS to figure it out.
+**Key features**: Optimal path guaranteed, state-space search, efficient complexity
 
-[Check it out →](task3_escape_a_labyrinth/)
+[View details →](task3_escape_a_labyrinth/)
 
 ## Requirements
 
-Just PHP 7.4 or newer. That's it! No composer, no frameworks, no dependencies. Keep it simple.
+- PHP 7.4 or newer
+- No additional dependencies required
 
 ```bash
-# Check your PHP version
 php --version
 ```
 
 ## Quick Start
-
-Each task lives in its own folder with everything it needs:
 
 ```bash
 # Task 1: Run the auction
@@ -52,210 +50,62 @@ cd task3_escape_a_labyrinth
 php solution.php
 ```
 
-## The Tasks Explained
-
-### Task 1: Advertising Bid Auction 🏷️
-
-**What it does**: Reads a CSV file with ad bids and tells you who wins and what they pay.
-
-**Example**:
-```bash
-# Your CSV has these bids:
-# Ad 1: $0.50
-# Ad 2: $33.00
-# Ad 3: $12.00
-# Ad 4: $33.50
-
-php bid_auction.php bids.csv
-# Output: 4, 33
-# (Ad 4 wins but only pays $33, not $33.50)
-```
-
-**Why it's cool**:
-- Single-pass algorithm - reads the file once, O(n) time
-- Handles decimals, duplicates, empty lines, you name it
-- Super fast - tested with 10,000+ rows
-- 30 unit tests covering every edge case
-
-**Skills shown**: Algorithms, file handling, CSV parsing, optimization
-
----
-
-### Task 2: Word Frequency Counter 📊
-
-**What it does**: A simple REST API that counts words. Submit text, get back word counts. It's persistent - restart the server, your data's still there.
-
-**Example**:
-```bash
-# Start it up
-php -S localhost:8080 index.php
-
-# Send some text
-curl -X POST http://localhost:8080/texts \
-  -H "Content-Type: application/json" \
-  -d '{"text": "Love grows where kindness lives."}'
-
-# Response shows all current word counts:
-# {
-#   "frequencies": {
-#     "love": 1,
-#     "grows": 1,
-#     "where": 1,
-#     "kindness": 1,
-#     "lives": 1
-#   }
-# }
-
-# Get all words
-curl http://localhost:8080/words
-
-# Find a specific word
-curl "http://localhost:8080/words/search?word=kindness"
-```
-
-**Why it's cool**:
-- Thread-safe with file locking - multiple users can use it at once
-- O(1) word lookups using hashmaps
-- Case-insensitive (Love = LOVE = love)
-- Strips out punctuation automatically
-- 26 comprehensive tests
-- Data persists in JSON file
-
-**Skills shown**: REST APIs, concurrency, data persistence, text processing
-
----
-
-### Task 3: Escape a Labyrinth 🗺️
-
-**What it does**: Finds the shortest path through a maze where you can break through one wall.
-
-**Example**:
-```php
-// 0 = open space, 1 = wall
-$maze = [
-    [0, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1],
-    [0, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0]
-];
-
-echo solution($maze); // Output: 11
-```
-
-**Why it's cool**:
-- Uses BFS (Breadth-First Search) for guaranteed shortest path
-- Smart state tracking: same position but different "can I still break a wall?" status = different state
-- O(height × width) complexity
-- Works on mazes up to 20×20
-- Full test suite with multiple scenarios
-
-**Skills shown**: Graph algorithms, BFS, state space search, complexity analysis
-
----
-
 ## Running Tests
 
-Every task has tests. Run them to see everything works:
+Each task includes comprehensive tests:
 
 ```bash
-# Task 1 (30 tests)
+# Task 1 - 30 tests
 cd task1_advertising_bid_auction && php test_bid_auction.php
 
-# Task 2 (26 tests)
+# Task 2 - 26 tests
 cd task2_word_frequency_counter && php test.php
 
-# Task 3 (Multiple test cases)
+# Task 3 - Multiple test cases
 cd task3_escape_a_labyrinth && php tests.php
 ```
 
-You should see a bunch of green checkmarks and "All tests passed!" messages.
+## Additional Tools
 
-## What Each Task Shows
+Task 2 includes a shell script (`example_usage.sh`) for automated API testing. As I'm currently studying for my LPI (Linux Professional Institute) certification, I created this tool to apply shell scripting skills to practical testing scenarios.
 
-**Algorithms & Problem Solving**:
-- BFS for shortest paths (Task 3)
-- Efficient single-pass processing (Task 1)
-- Hashmap optimization for fast lookups (Task 2)
+```bash
+cd task2_word_frequency_counter
+./example_usage.sh
+```
 
-**Software Engineering**:
-- REST API design (Task 2)
-- Input validation everywhere
-- Error handling with helpful messages
-- File I/O operations (Tasks 1 & 2)
-- Concurrent access handling (Task 2)
-
-**Code Quality**:
-- 76+ total unit tests across all tasks
-- Every edge case covered
-- Clear, readable code with comments
-- Documentation for everything
+The script demonstrates API endpoints, verifies server status, and automates common testing workflows - useful for CI/CD pipelines and demonstrations.
 
 ## Project Structure
 
 ```
 adcash_tasks/
-│
-├── README.md (you are here!)
-│
+├── README.md
 ├── task1_advertising_bid_auction/
-│   ├── bid_auction.php              # The main program
-│   ├── test_bid_auction.php         # 30 unit tests
-│   ├── sample.csv                   # Example to try
-│   └── README.md                    # Full docs
-│
+│   ├── bid_auction.php
+│   ├── test_bid_auction.php
+│   ├── sample.csv
+│   └── README.md
 ├── task2_word_frequency_counter/
-│   ├── index.php                    # API entry point
-│   ├── WordFrequencyCounter.php     # The brain
-│   ├── test.php                     # 26 tests
-│   ├── QUICKSTART.md                # Quick reference
-│   └── README.md                    # Full docs
-│
+│   ├── index.php
+│   ├── WordFrequencyCounter.php
+│   ├── test.php
+│   ├── example_usage.sh
+│   └── README.md
 └── task3_escape_a_labyrinth/
-    ├── solution.php                 # BFS pathfinding
-    ├── tests.php                    # Test suite
-    ├── NOTES.md                     # Algorithm notes
-    └── README.md                    # Full docs
+    ├── solution.php
+    ├── tests.php
+    └── README.md
 ```
 
-## Performance
+## Documentation
 
-All tasks are optimized:
-
-- **Task 1**: Reads 10,000+ rows in under 100ms
-- **Task 2**: O(1) word searches, handles concurrent requests
-- **Task 3**: Solves 20×20 mazes instantly
-
-## A Few Notes
-
-- **No frameworks**: All vanilla PHP, no dependencies to install
-- **Well tested**: Comprehensive test coverage on all tasks
-- **Production ready**: Proper error handling, validation, edge cases covered
-- **Clear docs**: Each task has its own detailed README
-
-## Why These Tasks?
-
-Each one demonstrates different skills:
-
-1. **Task 1**: Algorithm optimization and efficiency
-2. **Task 2**: API design and concurrent programming
-3. **Task 3**: Graph algorithms and problem-solving
-
-Together they show I can handle data structures, algorithms, APIs, testing, and writing clean, maintainable code.
-
-## Want More Details?
-
-Check out the individual README files in each task folder. They have:
-- Complete usage examples
-- API documentation (Task 2)
-- Algorithm explanations (Task 3)
-- Test coverage details
-- Performance benchmarks
-- Troubleshooting tips
+Each task folder contains detailed documentation including:
+- Implementation details
+- Usage examples
+- Algorithm explanations
+- Test coverage information
 
 ---
 
-Built with vanilla PHP and attention to detail. No magic, just solid code.
-
-Questions? Each task has detailed documentation. Dive in and have a look around!
+Built with vanilla PHP. See individual task READMEs for complete documentation.
